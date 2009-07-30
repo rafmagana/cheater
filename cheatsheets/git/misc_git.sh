@@ -17,3 +17,4 @@ git reflog
 The inverse of 'git add <file>' is 'git reset HEAD -- <file>' not 'git rm <file>'
 git rm --cached <filename> #If you want to keep a file, but not have it in the next revision
 git ls-files -o --exclude-standard #show untracked files
+git show-ref --hash $branch_name #show two different SHA1s if local and remote are in different commit
