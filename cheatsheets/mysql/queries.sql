@@ -58,3 +58,6 @@ ALTER TABLE $table_name DROP COLUMN $col;
 ###from bash
 mysql -u user -p < batch_file #(Use -t for nice table layout and -vvv for command echoing.)
 mysql> source batch_file;
+
+
+select email, count(email) as cnt from accounts group by email having cnt > 1 order by cnt;
