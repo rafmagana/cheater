@@ -1,215 +1,85 @@
-#GNU SCREEN
-Basics:
- -ctrl a c -> create new window
- -ctrl a A -> set window name
- -ctrl a w -> show all window
- -ctrl a 1|2|3|... -> switch to window n
- -ctrl a "" -> choose window
- -ctrl a ctrl a -> switch between window
- -ctrl a d -> detach window
- -ctrl a ? -> help
- -ctrl a [ -> start copy, move cursor to the copy location, press ENTER, select the chars, press ENTER to copy the selected characters to the buffer
- -ctrl a ] -> paste from buffer
+#GNU SCREEN - terminal multiplexer
 
+#sharing a terminal
+chmod +s /usr/bin/screen #To share a terminal with one or more users, you have to set the screen binary setuid root
+screen -S $session_name #Login as root and start a screen session and give it a name
+C-a then :multiuser on (to type ":", press "shift+;") #Enable  multi-user access function
 
-How to start screen:
- -screen -DR -> list of detached screen
- -screen -r PID -> attach detached screen session
- -screen -dmS MySession -> start a detached screen session
- -screen -r MySession -> attach screen session with name MySession
+#attaching and detaching
+screen -r #reattach
+screen -DR #list of detached screen
+screen -r PID #attach detached screen session
+screen -dmS $session_name #start a detached screen session
+screen -r $session_name #attach screen session with name MySession
+C-a d || C-a C-d #detach window
+C-a D D #detach and logout
+C-a \ #Kill all windows and terminate screen
+C-a ? #help
 
- 
-Advanced:
- -ctrl a S -> create split screen
- -ctrl a TAB -> switch between split screens
-If you created a new split screen, the current window is empty. either select an existing window (ctrl a ") or create a new split screen (ctrl a n).  
- -ctrl a Q -> Kill all regions but the current one.
- -ctrl a X -> remove active window from split screen
- -ctrl a O -> logout active window (disable output)
- -ctrl a I -> login active window (enable output)
+#launching and switching basics
+C-a c # create new window
+C-a C-c #switch to that window
+C-a C-a #switch you to whichever window you were using before the current one.
+C-a C-n #next window
+C-a C-p #previous windows
+C-a double-quotes #interactive list of windows
+C-a w || C-a C-w #no interactive list of windows
+C-a single-quotes #ask for a number of window to switch to
+C-a A #name a window
+C-a K #kill a window
+C-a $num #go to window number $num
+C-a - #Switch to the blank window
+C-a a #send C-a to terminal
+C-a [space] || C-a n || C-a C-n #switch to the next window
+C-a [backsp] || C-a p || C-a C-p #switch to the previous window
 
+#copying, pasting and scrolling
+C-a [ #start copy, move cursor to the copy location, press ENTER, select the chars, press ENTER to copy the selected characters to the buffer
+C-a ] #paste from buffer
+C-a [ESC] #exit copy mode
 
-##########################################################
+#monitoring windows
+C-a _ #start or stop monitoring current window for 30 seconds
+C-a M #start or stop monitoring current window for activity
 
-.-----------------------------------------------------------------------.
-|                                                                       |
-|                  Screen VT100/ANSI Terminal Emulator                  |
-|                      Default Keyboard Shortcut                        |
-|                            Cheat Sheet                                |
-|                                                                       |
-'-----------------------------------------------------------------------'
-| Peteris Krumins (peter@catonmat.net), 2007.09.21                      |
-| http://www.catonmat.net  -  good coders code, great reuse             |
-'-----------------------------------------------------------------------'
+#splitted screens
+C-a S #create split screen
+C-a TAB #switch between split screens
+C-a Q #Kill all regions but the current one. (return to full screen mode)
+C-a X #remove active window from split screen
+C-a O #logout active window (disable output)
+C-a I #login active window (enable output)
 
+#buffering
+C-a > #write paste buffer to a file
+C-a < #read the screen-exchange file into the paste buffer
+C-a = #removes the file used by C-a > and C-a <
 
- ====================== Keyboard Shortcut Summary= =====================
-
-.--------------.---------------.----------------------------------------.
-|              |               |                                        |
-| Shortcut     | Command       | Description                            |
-|              |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a '        | select        | Prompt for a window name or number to  |
-|              |               | switch to.                             |
-'--------------+---------------+----------------------------------------'
-| C-a "        | windowlist -b | Present a list of all windows for      |
-|              |               | selection.                             |
-'--------------+---------------+----------------------------------------'
-| C-a 0 .. 9   | select 0 .. 9 | Switch to window number 0 ... 9        |
-'--------------+---------------+----------------------------------------'
-| C-a -        | select -      | Switch to the blank window.            |
-'--------------+---------------+----------------------------------------'
-| C-a [TAB]    | focus         | Switch the input focus to the next     |
-|              |               | region.                                |
-'--------------+---------------+----------------------------------------'
-| C-a C-a      | other         | Toggle to the window displayed         |
-|              |               | previously.                            |
-'--------------+---------------+----------------------------------------'
-| C-a a        | meta          | Send the command character (C-a) to    |
-|              |               | window.                                |
-'--------------+---------------+----------------------------------------'
-| C-a A        | title         | Allow the user to enter a name for the |
-|              |               | current window.                        |
-'--------------+---------------+----------------------------------------'
-| C-a b        | break         | Send a break to window.                |
-| C-a C-b      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a B        | pow_break     | Reopen the terminal line and send a    |
-|              |               | break.                                 |
-'--------------+---------------+----------------------------------------'
-| C-a c        | screen        | Create a new window with a shell and   |
-| C-a C-c      |               | switch to that window.                 |
-'--------------+---------------+----------------------------------------'
-| C-a C        | clear         | Clear the screen.                      |
-'--------------+---------------+----------------------------------------'
-| C-a d        | detach        | Detach screen from this terminal.      |
-| C-a C-d      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a D D      | pow_detach    | Detach and logout.                     |
-'--------------+---------------+----------------------------------------'
-| C-a f        | flow          | Toggle flow on, off or auto.           |
-| C-a C-f      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a F        | fit           | Resize the window to the current       |
-|              |               | region size.                           |
-'--------------+---------------+----------------------------------------'
-| C-a C-g      | vbell         | Toggles screen's visual bell mode.     |
-'--------------+---------------+----------------------------------------'
-| C-a h        | hardcopy      | Write a hardcopy of the current window |
-|              |               | to the file "hardcopy.n".              |
-'--------------+---------------+----------------------------------------'
-| C-a H        | log           | Begins/ends logging of the current     |
-|              |               | window to the file "screenlog.n".      |
-'--------------+---------------+----------------------------------------'
-| C-a i        | info          | Show info about this window.           |
-| C-a C-i      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a k        | kill          | Destroy current window.                |
-| C-a C-k      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a l        | redisplay     | Fully refresh current window.          |
-| C-a C-l      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a L        | login         | Toggle this windows login slot.        |
-|              |               | Available only if screen is configured |
-|              |               | to update the utmp database.           |
-'--------------+---------------+----------------------------------------'
-| C-a m        | lastmsg       | Repeat the last message displayed in   |
-| C-a C-m      |               | the message line.                      |
-'--------------+---------------+----------------------------------------'
-| C-a M        | monitor       | Toggles monitoring of the current win. |
-'--------------+---------------+----------------------------------------'
-| C-a [space]  | next          | Switch to the next window.             |
-| C-a n        |               |                                        |
-| C-a C-n      |               |                                        |
-'--------------+---------------+----------------------------------------'
-|C-a N         | number        | Show the number (and title) of the     |
-|              |               | current window.                        |
-'--------------+---------------+----------------------------------------'
-| C-a [backsp] | prev          | Switch to the previous window          |
-| C-a h        |               | opposite of C-a n.                     |
-| C-a p        |               |                                        |
-| C-a C-p      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a q        | xon           | Send a control-q to the current win.   |
-| C-a C-q      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a Q        | only          | Delete all regions but the current one.|
-'--------------+---------------+----------------------------------------'
-| C-a r        | wrap          | Toggle the current window's line-wrap  |
-| C-a C-r      |               | setting (turn the  current  window's   |
-|              |               | automatic margins on and off).         |
-'--------------+---------------+----------------------------------------'
-| C-a s        | xoff          | Send a control-s to the current window.|
-| C-a C-s      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a S        | split         | Split the current region into two new  |
-|              |               | ones.                                  |
-'--------------+---------------+----------------------------------------'
-| C-a t        | time          | Show system information.               |
-| C-a C-t      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a v        | version       | Display the version and compilation    |
-|              |               | date.                                  |
-'--------------+---------------+----------------------------------------'
-| C-a C-v      | digraph       | Enter digraph.                         |
-'--------------+---------------+----------------------------------------'
-| C-a w        | windows       | Show a list of window.                 |
-| C-a C-w      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a W        | width         | Toggle 80/132 columns.                 |
-'--------------+---------------+----------------------------------------'
-| C-a x        | lockscreen    | Lock this terminal.                    |
-| C-a C-x      |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a X        | remove        | Kill the current region.               |
-'--------------+---------------+----------------------------------------'
-| C-a z        | suspend       | Suspend screen. Your system must       |
-| C-a C-z      |               | support BSD-style job-control.         |
-'--------------+---------------+----------------------------------------'
-| C-a Z        | reset         | Reset the virtual terminal to its      |
-|              |               | "power-on" values.                     |
-'--------------+---------------+----------------------------------------'
-| C-a .        | dumptermcap   | Write out a ".termcap" file.           |
-'--------------+---------------+----------------------------------------'
-| C-a ?        | help          | Show key bindings.                     |
-'--------------+---------------+----------------------------------------'
-| C-a C-\      | quit          | Kill all windows and terminate screen. |
-'--------------+---------------+----------------------------------------'
-| C-a :        | colon         | Enter command line mode.               |
-'--------------+---------------+----------------------------------------'
-| C-a [        | copy          | Enter copy/scrollback mode.            |
-| C-a C-[      |               |                                        |
-| C-a [ESC]    |               |                                        |
-'--------------+---------------+----------------------------------------'
-| C-a ]        | paste .       | Write the contents of the paste buffer |
-|              |               | to the stdin queue of the current win. |
-'--------------+---------------+----------------------------------------'
-| C-a {        | history       | Copy and paste a previous (command)    |
-| C-a }        |               | line.                                  |
-'--------------+---------------+----------------------------------------'
-| C-a >        | writebuf      | Write paste buffer to a file.          |
-'--------------+---------------+----------------------------------------'
-| C-a <        | readbuf       | Reads the screen-exchange file into    |
-|              |               | the paste buffer.                      |
-'--------------+---------------+----------------------------------------'
-| C-a =        | removebuf     | Removes the file used by C-a < and     |
-|              |               | C-a >                                  |
-'--------------+---------------+----------------------------------------'
-| C-a ,        | license       | Shows where screen comes from, where   |
-|              |               | it went to and why  you  can  use it.  |
-'--------------+---------------+----------------------------------------'
-| C-a _        | silence       | Start/stop monitoring the current      |
-|              |               | window for inactivity.                 |
-'--------------+---------------+----------------------------------------'
-| C-a *        | displays      | Show a listing of all currently        |
-|              |               | attached displays.                     |
-'--------------'---------------'----------------------------------------'
-
- =======================================================================
-
-.-----------------------------------------------------------------------.
-| Peteris Krumins (peter@catonmat.net), 2007.09.21                      |
-| http://www.catonmat.net  -  good coders code, great reuse             |
-'-----------------------------------------------------------------------'
+#misc
+C-a b || C-a C-b #Send a break to window
+C-a B #Reopen the terminal line and send a break
+C-a C || C-l #clear the screen
+C-a f || C-a C-f #toggle flow on, off or auto
+C-a F #resize window to current region size
+C-a C-g #toggles screen's visual bell mode
+C-a h #write a hardcopy of the current window to the file "hardcopy.n"
+C-a H #Begins/ends logging of the current window to the file "screenlog.n".
+C-a i || C-a C-i #show info about this window
+C-a k || C-a C-k #destroy current window
+C-a l || C-a C-l #fully refresh current window
+C-a L #Toggle this windows login slot. Available only if screen is configured to update the utmp database.
+C-a m || C-a C-m #Repeat the last message displayed in the message line.
+C-a q || C-a C-q #send control-q to the current window
+C-a r || C-a C-r #toggle current window wrapping
+C-a s || C-a C-s #send a control-s to the current window
+C-a t || C-a C-t #show system information
+C-a v #display the version and compilation date
+C-a C-v #digraph mode
+C-a W #toggle 80/132 columns
+C-a x || C-a C-x #lock this terminal
+C-a z || C-a C-z #suspend screen, return with fg command
+C-a Z #reset the virtual terminal to its "power-on" values
+C-a . #write out a ".termcap" file
+C-a , #shows welcome screen
+C-a : #enter command line mode
+C-a {, C-a } #copy and paste previous line
