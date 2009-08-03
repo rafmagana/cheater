@@ -1,0 +1,126 @@
+#The Rails Way
+
+############### CHAPTER 1 - Rails Environments and Configuration ###############
+
+  ENV #holds the entire environment variables, such as TZ (time zone) and RAILS_ENV
+  RAILS_ENV #current environment
+  config/environment.rb #first thing that happens to handle request in Rails is load this file
+  config/boot.rb #file loaded by config/environment to bootstrap the Rails framework
+  RAILS_ROOT #the first thing boot.rb does is set this constant used all overt the place to find files
+  config/initializer.rb #reponsible of configuration, it's used by the environment script, it calls Default Load Paths
+
+  #concepts
+  Auto-Loading Code   #Some::ReallyRatherDeeply::NestedClass becomes require ‘some/really_rather_deeply/nested_class’
+  Builtin Rails Info  #located in railties/builtin/rails_info, accesible through localhost:3000/rails/info/properties
+  Log-Level Override  #:debug is the default for all the environments except production which uses :info
+  Schema Dumper       #when you run tests, Rails dumps the schema of your dev DB and copies it to the test DB
+  Observers           #ActiveRecord observers are first-class objects that perform specific tasks
+  Time Zones          #The default time zone is local time (using Time.local), that is, the same time zone as your server.
+
+  #standard modes - config/environments/{mode}.rb
+  Development Mode  #config.cache_classes = false, config.action_controller.consider_all_requests_local = true
+  Test Mode         #config.cache_classes = true, config.action_controller.consider_all_requests_local = true
+  Production Mode   #config.cache_classes = true, config.action_controller.consider_all_requests_local = false
+  Custom Modes      #as simple as add a config/environments/custom_mode_name.rb
+
+  #logging
+  logger #any model, controller and view has this attribute to access the default logger (Logger.new STDOUT)
+  RAILS_DEFAULT_LOGGER #or you can use this constant (rdb + TAB in TextMate)
+  Standard loggers #debug, info, warn, error and fatal (ie. logger.fatal = "alles kaput!!")
+  
+  #rails log files
+  rake log:clear  # Truncates all *.log files in log/ to zero bytes
+  tail -f log/development.log #see the contents of such a log
+
+############### CHAPTER 2 - Working with controllers ###############
+  
+  #The dispatcher
+  Flow #a web server handles a request, the server then forwards it to the Rails app, where it is handled by the dispatcher.
+  
+  #Request handling - server passes off the request URI (http://localhost:3000/controller/action/param) or CGI environment
+  what the dispatcher does  #1. figure out which controller is involved in the request
+                            #2. figure out which action should be executed
+                            #3. load the controller file
+                            #4. create an instance of the controller class
+                            #5. tell that instance to execute the appropiate action
+  Dispatcher.dispatch #dispatch based on ENV[‘REQUEST_URI’] and ENV[‘REQUEST_METHOD’]
+  
+  #rendering
+  index #default action if no action is present in the request
+  default template #every action has an implicit render (render :template =>controller_name/method_name)
+  templates #in app/views, so controller_name/method_name will be in app/views/controller_name/method_name.html.erb
+  partial templates #in app/views, named as "_partial_name.html.erb", called as "render :partial => foo/partial_name"
+  rendering different kind of contents #:template, :file, :partial, :inline. :text, :json, :xml, :nothing
+  rendering options #:content_type - MIME type
+                    #:layout - specify whether you want a layout template to be rendered or not
+                    #:status - HTTP protocol status codes (503, 404, etc)
+  render and return #code after a redirect or render call will still be run
+                    #and the application will wait until it’s complete 
+                    #before sending that data to the browser
+  
+  #redirecting - terminating the current request and initiating a new one
+  redirect_to :controller => “main” #redirects to the "index" action of a different controller called "main"
+  redirect_to :controller => “main”, :action => “another” #to "another" action of the "main" controller
+  why not use render? #because if view uses instance variables created in its controller they won't accesible (@variable)
+  
+  #Controller/View Communication
+  instance variables #starts with a @, can be created in controller and it will be accessibles in the view
+  
+    #Filters - macro-style, can be in the top of the controller method, inside the class context, before method definitions.
+    AOP #_#the magic of Aspect Oriented Programming in ruby!!!!!
+    what are they? #enable controllers to run shared pre- and post-processing code for its actions
+    what they can access? #request, response, and all the instance variables set by other filters 
+                          #in the chain or by the action (in the case of after filters)
+    accessibility #they should be protected or private methods
+    before_filter :method #executes "method" before execute any other method
+    after_filter :a_method, :another_method #execute them after execute any other method
+    inheritance #Controller inheritance hierarchies share filters downward
+    halting the filter chain #if a filter in a superclass returns false other filters or actions won't execute in subclasses
+    filter forms #method referecence (symbol), external class or inline method (proc)
+  
+      #Filter Chain Ordering
+      the chain #using before or after appends the filters to the existing chain
+      prepend_before_filter and prepend_after_filter  #Filters added by these methods will be 
+                                                      #put at the beginning of their respective 
+                                                      #chain and executed before the rest
+
+      #around filters - wraps an action executing code both before and after the action they wrap
+      around_filter :method #calls method, which calls yield inside
+      around_filter do |controller, action| #don't use yield, it uses action.call instead
+      around_filter Object #object must respond to :filter or both :before and :after
+      
+      #Filter chain skipping
+      skip_before_filter :filter_to_skip #commonly used to skip authentication filters in login methods
+      skip_after_filter :filter_to_skip
+      skip_filter :around_filter_to_skip
+      
+      #Filter conditions
+      :only => [:method_1, :method_2] # executed only before or after "method_1" or "method_2" are executed
+      :except => [:foo, :bar] #excute the filter in all the methods but "foo" and "bar"
+      
+      #Filter Chain Halting
+      before_filter #return false to halt
+      around_filter #don't call either action.call or yield to halt
+      render or redirect_to #calling any of these will halt the chain
+      after_filter #they won't execute if the chain is halted
+    
+    #Streaming - send dynamically generated files to the browser (e.g., images, PDF files)
+    ActionController::Streaming module #support for streaming
+    send_data(data, options = {}) #allows you to send textual or binary data to the user as a named file
+    send_data options #:filename - file name for the browser to use
+                      #:type - HTTP content type, defaults to 'application/octet-stream'
+                      #:disposition - inline and attachment(default)
+                      #:status - Specifies the status code to send with the response. Defaults to ‘200 OK’.
+    send_file #this one should not be used under almost any circumstance
+    
+############### CHAPTER 3 - Routing ###############
+    
+    Rails Routing System  #it maps requests to actions, and it writes URLs for you for use 
+                          #as arguments to methods like link_to, redirect_to, and form_tag.
+                          #_#I think, in some cases, it's better to use rewrite instead
+    config/routes.rb #file which stores the URL mapping rules
+    
+    #The Two Purposes of Routing
+    map.connect "anything/:wild_card",  #http://server/anything/1
+      :controller => "foo",             #link_to “the link”, :controller => “foo”,
+      :action => "show"                  #:action     => “show”, :wild_card => “1”
