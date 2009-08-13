@@ -27,3 +27,7 @@ pager less; #defaults pager to less
 #environment variables
 export MYSQL_PS1="(\u@\h) [\d]> " #show user, host and current selected database
 export MYSQL_PS1="\\d@\\h> " #show database name in prompt
+
+#import files
+mysql -u root -p -vvf mod_cart_development < file
+mysql -u root -p -vvf < file (si el archivo tiene CREATE )

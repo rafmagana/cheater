@@ -2,7 +2,7 @@
 ################## LOCAL ###################
 SELECT * FROM table WHERE field rlike "^regexp$";
 
-UPDATE products SET state="ready_to_launch" WHERE id=6098;
+UPDATE products SET state="ready_to_launch" WHERE id=6098;117517
 
 select * from products where name LIKE "%card-igan%";
 
