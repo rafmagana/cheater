@@ -74,7 +74,7 @@
   require #similar to load, but it won't load a file if it has already been loaded.
   
 #1.3.4. Creating Classes
-  class class_name-end#creates a class
+  class class_name;end#creates a class
   class name < parent #inheritance
   class names #The name of a class is itself a global constant and thus must begin with an uppercase letter
               #classes in ruby do not strictly speaking have names. 

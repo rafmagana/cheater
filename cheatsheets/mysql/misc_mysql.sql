@@ -6,3 +6,5 @@ UPDATE [LOW_PRIORITY] [IGNORE] table_references
     [WHERE where_condition]
 
 INSERT INTO tbl_name (col1,col2) VALUES(col2*2,15);
+
+mysql -u USER -p DBNAME < dump.sql

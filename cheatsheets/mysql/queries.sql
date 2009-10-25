@@ -61,3 +61,12 @@ mysql> source batch_file;
 
 
 select email, count(email) as cnt from accounts group by email having cnt > 1 order by cnt;
+
+###Create users
+CREATE USER 'monty'@'localhost' IDENTIFIED BY 'some_pass';
+
+###Grants
+SHOW GRANTS FOR 'user_name'@'localhost';
+
+###Schemas
+RENAME {DATABASE | SCHEMA} db_name TO new_db_name;
