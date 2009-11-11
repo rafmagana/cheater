@@ -66,3 +66,7 @@ git stage --interactive
 git cherry-pick [--edit] [-n] [-m parent-number] [-s] [-x] <commit>
   selectively merge a single commit from another local branch
   Example: git cherry-pick 7300a6130d9447e18a931e898b64eefedea19544
+
+#fcsk
+
+gitk --all $( git fsck | awk '/dangling commit/ {print $3}' ) #recover a lost stash //thanks David Padilla
