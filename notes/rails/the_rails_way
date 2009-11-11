@@ -122,9 +122,7 @@
     
     #The Two Purposes of Routing
     map.connect "anything/:wild_card",  #http://server/anything/1
-      :controller => "foo",             #link_to “the link”, :controller => “foo”,
-      :action => "show"                  #:action     => “show”, :wild_card => “1”
+      :controller => "foo",             #link_to "the link", :controller => "foo",
+      :action => "show"                  #:action     => "show", :wild_card => "1"
       
-############### CHAPTER 6 - Working with ActiveRecord ###############
-
-  class Client < ActiveRecord::Base #creates a new model class for the table clients
+      PAGE 120 (marked as 61)

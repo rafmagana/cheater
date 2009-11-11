@@ -13,4 +13,8 @@ perl -i -pe 's/foo/bar/gi' *  #search through * and replace all foo with bar
 split -b2047m $inputfilename #splits $inputfilename in chunks of 2gb
 cat x* > $completefilename #regenerate the splitted file
 
+#cut
+cut -d : -f 1,7 /etc/passwd #extract users' login and shells
+
+#scp
 scp => http://www.hypexr.org/linux_scp_help.php
