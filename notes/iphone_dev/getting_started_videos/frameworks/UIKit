@@ -1,0 +1,22 @@
+Graphics in UIKit (Highest-level interface)
+	• For typical graphics operations in your UI
+		• Drawing Images
+		• Setting Colors
+		• Filling Rectangles
+	• For animation of your UI
+		• Move, Scale, Rotate
+		• Fade in, Fade out
+		• Transitions
+	• Custom drawing
+	
+UIKit Graphics
+	- Set of classes for graphics
+		• UIImage
+		• UIImageView - images in a view, or a slideshow of images
+		• UIColor
+		• UIFont, UILabel - classes for drawing text
+		• UIScreen - basic information about the screen
+	- Graphics utility functions
+		• Draw filled rectangles, outlines, and clipping
+		• Generate a PNG or JPEG from a UIImage
+		• Retrieve screen info, graphics context

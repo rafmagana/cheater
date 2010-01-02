@@ -1,0 +1,10 @@
+Overview
+	- Sophisticated 2D drawing engine
+		• Vector Geometry: Path-based lines and strokes
+		• Filled shapes, patterns, gradients
+		• Text, Images, PDF's
+
+	- Used by Higher-level Application Services
+		• UI Kit
+	
+	- Available through the CoreGraphics.framework

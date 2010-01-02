@@ -1,0 +1,71 @@
+Overview
+	* Tools
+		- Xcode - An IDE to build iPhone apps
+			- Project management
+			- Source editor
+			- Graphical debugger
+			- A set of templates
+		- Instruments
+			- to dynamically tracing and profiling code
+		- Dashcode
+			- UI layouting
+			- code writing 
+			- web content test tool
+		- iPhone Simulator
+			- Run iPhone applications with a real iPhone
+	* Technology
+		- Architecture
+			• Core OS - drivers and basic interface
+			• Core Services
+			• Media
+			• Cocoa Touch - Event handling, UI, windows, accel, cam
+		-- Core OS
+			- LibSystem library - Unix (C-based)
+				• Threading (POSIX)
+				• Networking (BSD)
+				• File system access
+				• Standard I/O
+				• Memory allocation
+		-- Core Services
+			- Core Foundation framework (C-based)
+				• Collection data types
+				• Date and time management
+				• URL & Stream services
+				• Thread & Run-loop
+				• Port & Socket comm
+			- CFNetwork framework (C-based)
+				- BSD Sockets
+				- FTP & HTTP
+				- DNS Host resolution
+				- Encrypted SSL
+			- Security framework
+				- Keychain
+				- Certificate & Key management
+			- SQLite library
+			- XML libraries
+				- libxml2
+				- libxslt
+		-- Media
+			- Graphic Technologies
+				• Quartz
+				• Core Animation (Objective C API)
+				• OpenGL|ES
+			- Audio Technologies
+				• Core Audio & Audio ToolBox frameworks
+				• OpenAL (3D spacial audio)
+			- Video Technologies
+				- MediaPlayer frameworks
+		-- Cocoa Touch (event-driven app dev)
+			- UIKit framework (Obj-C)
+				• Application integration (send system message)
+				• Graphics and windowing services
+				• Event-handling
+				• Standard views and controls
+				• Web content and text services
+				• Accelerometer data
+				• Access to the built-in camera
+				• Access to the photo library
+				• Device-specific information
+			- Addressbook framework (access to the contact database)
+			- Address UI framework (picking contacts)
+			- Core Location framework (current location)
