@@ -3,6 +3,7 @@ git branch $branch_name #Create a new local branch
 git push origin $branch_name #Create remote branch or tag based on a local one
 git push origin origin:refs/heads/$branch_name #idem
 git push origin master:refs/heads/$branch_name #idem
+git push origin :/heads/branchname #deletes branchname
 
 #delete branches
 git branch -r -d origin/new_feature_name #delete remote branch
