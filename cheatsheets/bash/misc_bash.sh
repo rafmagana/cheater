@@ -21,3 +21,6 @@ scp => http://www.hypexr.org/linux_scp_help.php
 
 #apache
 sudo apachectl start
+
+#tar gzip
+tar -pczf gzipped_tared_file.tar.gz file_or_folder_to_tar
