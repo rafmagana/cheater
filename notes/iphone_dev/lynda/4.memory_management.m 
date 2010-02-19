@@ -1,0 +1,80 @@
+/**** MEMORY MANAGEMENT */
+
+	/* DANGLING POINTER */
+
+		Dog *fido = [Dog new]; //retainCount = 1
+		[fido bark];
+		[fido release]; 	   //retainCount = 0; variable still exists
+		[fido bark];		   // boom!!
+	
+	/* MEMORY LEAK */
+		Dog *lucky = [Dog new]; //inside a method
+	
+		as method ends "lucky" var does not exists 
+		anymore but the memory is still used
+
+	/* THE ONE RULE OF MEMORY MANAGEMENT */
+	
+		if you own an object, it is your responsability to release it
+	
+		*you own an object by creating it
+		*by copying it or retaining it
+		*If you do not own the object you must no release it
+	
+/**** OBJECT LIFETIME */
+
+	Dog *fido = [Dog new]; //allocation and initialization
+	
+	Dog *fido = [Dog alloc]; //allocation; not usable
+	fido = [Dog init];  //initialization; usable
+	
+	Dog *fido = [[Dog alloc] init]; //most common
+	
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	NSString *title = [[NSString alloc] initWithSring:@"My Title"]
+	
+	NSString *message = [[NSString alloc]
+	initWithFormat:@"The movie %@ is at %d", title, position];
+		
+/**** CLEANING UP */
+	
+	[my_class_instance release] //what happens?
+	
+	in MyClass.h //MyClass definition file
+
+			@interface Dog : NSObject {}
+	
+	in MyClass.m //MyClass implementation file
+	
+		- (void) dealloc {
+			NSLog(@"I'm about to be destroyed!");
+			[super dealloc];
+		}
+			
+	dealloc is not in the MyClass header but in header of NSObject
+	
+/**** AUTORELEASE POOL */
+
+	------ AVOID USE OF AUTORELEASE IN iPHONE APPS ------
+
+	A pool exists in every single x-code project you create
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		[pool drain]
+		
+	Using the pool
+		
+		in B class
+			
+			- (c) CreateSomething {
+				C *c [[C alloc] init];
+				[c autorelease]; //this puts c in the pool
+				return c;
+			}
+			
+		in A class
+			
+			B *b = [[B alloc] init];
+			C *result = [b createSomething];
+		

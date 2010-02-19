@@ -1,0 +1,39 @@
+/**** BASIC INTERACTION */
+		
+	Resources/{ProjectName}ViewController.xib //interface
+	Classes/{ProjectName}Viewcontroller.h     //definition
+	
+	1. Add elements to the ViewController.xib
+	2. Add the elements as IBOutlet to ViewController.h
+		IBOutlet UITextField *txtName;
+		IBOutlet UILabel *lblMessage;
+		
+	3. Add getters and setters to ViewController.h
+		@property (nonatomic, retain) IBOutlet UITextField *txtName;
+		@property (nonatomic, retain) IBOutlet UILabel *lblMessage;
+		
+	4. Add actions declarations
+		- (IBAction) doSomething;
+		
+	5. Add @synthesize to ViewController.m
+		@synthesize txtName;
+		@synthesize lblMessage;
+	
+	6. Write the methods (action) defined in the header
+		- (IBAction) doSomething
+		{
+			NSString *msg = [[NSString alloc] initWithFormat:@"Hello, %@", txtName.text];
+			lblMessage.text = msg; //the C way
+			[lblMessage setText:msg]; //the Obj-C way
+			[msg release];
+		}
+		
+	7. Assign outlets and actions in Interface Builder
+		Right-click File^s owner
+		You will see a list of:
+			Outlets
+			Received Actions
+			Referencing Outlets
+		Drag the + of an Outlet to the corresponding element in view
+		Drag the + of an Action to the Launcher of such action (button, etc)
+		
