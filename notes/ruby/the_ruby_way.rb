@@ -50,7 +50,7 @@
   raise #raises and exception
   RuntimeError #default error
   raise "Some error message" #raises a RuntimeError exception
-  raise ExceptionTypeClass, "message", caller #caller is an array an stores filename:line in method
+  raise ExceptionTypeClass, "message", caller #caller is an array and stores filename:line in method
   begin-rescue-retry-else-ensure-end #block to handle exceptions
   begin-end #the body of a method definition is an implicit begin-end block
   rescue #catches exceptions and handle them
@@ -59,7 +59,7 @@
   rescue => err #handle all the error with one resuce, will catch any descendant of StandardError
 
 #1.3. OOP in Ruby
-  reference or value #ruby copies variables by references
+  reference or value #ruby copies variables by reference
   obj.object_id #shows the object id
   Symbol #refers to a variable by name rather than by reference
 
@@ -74,15 +74,15 @@
   require #similar to load, but it won't load a file if it has already been loaded.
   
 #1.3.4. Creating Classes
-  class class_name;end#creates a class
-  class name < parent #inheritance
-  class names #The name of a class is itself a global constant and thus must begin with an uppercase letter
+  class ClassName;end#creates a class
+  class Name < Parent #inheritance
+  class Names #The name of a class is itself a global constant and thus must begin with an uppercase letter
               #classes in ruby do not strictly speaking have names. 
               #The name is only a constant that is a reference to an object of type Class (Class is a class)
   initialize #similar to the traditional constructor, but it doesn't deal with memory allocation
   new #it creates a new instance of a class, this is the method which handles the memory allocation
   garbage collector #handles deallocation
-  self #it'is only a reference to the current receiver, methods prfixed with self will be static methods (Class::Method)
+  self #it'is only a reference to the current receiver, methods prfixed with self will be static methods (Class::method or Class.method)
   objects??? #yes, classes are objects because they are instances of Class, weird!
   abstract and concrete classes #classes in ruby are always concrete
   
@@ -100,20 +100,20 @@
    protected #it's callable only from within the class, but it can be called with a reciever other than self
    public #default visiblity for the methods
    
-   alias #to create aliases or synonymous for methods ie. "alias new_name old_method"
+   alias #to create aliases or synonymous for methods ie. "alias new_name old_new"
    
    #1.3.5. Methods and Attributes
    method(arg1, *args) #multiple arguments, args will be an array which can be iterated with args.each
    methods on a per-object basis # my_str = "str"; def my_str.do_something ... end (called singletons)
    
-#1.4. Dynamic Aspects of Ruby
-  Ruby is totally dynamic, you can define classes, methods and any kind of object at RUNTIME
+   #1.4. Dynamic Aspects of Ruby
+   Ruby is totally dynamic, you can define classes, methods and any kind of object at RUNTIME
 
-#1.4.2. Reflection
+  #1.4.2. Reflection
   defined?(var) #to know if an object, variable, etc is defined
   obj.respond_to?("method") #determines whether an object can respond to the specified method call
-  obj.class #returns the class
-  obj.is_a?(Class) #determine is obj is of type Class. ie. "bla".is_a?(String) will return true
+  obj.class #returns the class obj inherited from
+  obj.is_a?(Class) #determine if obj is of type Class. ie. "bla".is_a?(String) will return true
   obj.kind_of?(Class) #determine is obj is of type Class. ie. "bla".is_a?(String) will return true
   obj.methods #returns all the methods
   
@@ -138,7 +138,7 @@
 
   #1.5.4. Rubyisms and Idioms
   .. and ... # 1..10 include the 10, 1...10 does not
-  end_excluded? #given two ranges m..n and m...n, "end" returns the "n" of both, this method distinguishes between these two sitations
+  end_excluded? #given two ranges m..n and m...n, "end" returns the "n" of both, this method distinguishes between these two situations
   range.to_a #since 1..3 is not [1, 2, 3], we can turn a range into an array with to_a method
   x ||= 5 #is the same as "x = x || 5" or "x = x ? x : 5"
   x, y = y, x #it swaps the values of the variables
@@ -163,5 +163,3 @@
 
   #1.5.5. Expression Orientation and Other Miscellaneous Issues
   Fixnum #it's assigned by value not by reference as array or other types
-  
-#CHAPTER 2. WORKING WITH STRINGS
