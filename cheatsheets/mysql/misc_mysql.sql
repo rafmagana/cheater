@@ -16,8 +16,10 @@ SELECT TABLE_NAME
 #DELETE
 DROP DATABASE $database_name
 
-#DUMP
-mysqldump -d -h localhost -u root -p2Uad7as9 database01 > dumpfile.sql
+#DUMP SCHEMA (structure)
+mysqldump -d -h {host} -u {user} -p {password} {database} > {dumpfile.sql}
+mysqldump -u{user} -p{pass} --skip-triggers --compact --no-create-info {database} > {dumpfile.sql}
+
 
 #CHARSET AND COLLATION
 ALTER TABLE 'table_name' DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci
@@ -31,3 +33,9 @@ ALTER DATABASE $database DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci
 
 #PAGER
 pager less
+
+#CREATE USER
+CREATE USER 'user_name'@'server' IDENTIFIED BY 'the_pass';
+
+#PERMISSIONS
+GRANT ALL ON {database}.* TO {user};
