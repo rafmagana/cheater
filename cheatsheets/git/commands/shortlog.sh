@@ -1,0 +1,1 @@
+git shortlog -s -n #shows number of commits per developer

@@ -70,3 +70,8 @@ git cherry-pick [--edit] [-n] [-m parent-number] [-s] [-x] <commit>
 #fcsk
 
 gitk --all $( git fsck | awk '/dangling commit/ {print $3}' ) #recover a lost stash //thanks David Padilla
+
+###### 12. Storing/Retrieving from the File System
+$ echo "Foo" | git hash-object -w --stdin #51fc03a9bb365fae74fd2bf66517b30bf48020cb
+$ git tag myfile 51fc03a9bb365fae74fd2bf66517b30bf48020cb
+$ git cat-file blob myfile
