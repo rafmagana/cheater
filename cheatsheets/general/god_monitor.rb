@@ -1,0 +1,1 @@
+god -c <config.god> -D (not daemonized)
