@@ -1,0 +1,64 @@
+Scaling Rails
+=============
+
+Front-end
+---------
+
+1. **Y-Slow**  
+	_Improve page responsiveness_  
+	it will tell you if you need to compress or consolidate your CSS or JS.
+	
+2. **Page caching**
+
+3. **Action caching** if you can't do _page caching_
+
+4. **Fragment caching** if you can't do _action caching_
+
+5. **Object caching** if you can't do _fragment caching_
+
+6. **Cache expiration** sucks, please avoid it at all costs
+
+7. **Memcached**, _Rails_ loves it!
+
+8. **Use background processes**, delay as much as you can
+	anything takes longer than 5 or 10 ms should be delayed
+	
+9. **Client-side caching**  
+	Use etags and last-modified
+	
+10. **Do not pre-optimize**  
+	Finish your applications and then ensure it can be scaled then implement the previous points
+	
+11. **Do not abuse your database**  
+    You probably suck at ActiveRecord
+
+12. **Add indexes** based on what you are querying upon
+
+### Plugins that just might save your ass ###
+
+#### ActiveRecord plugins for DB optimization ####
+
+1. **Bullet**  
+	Help you reduce the number of queries with alerts, it tells you if you aren't using _eager loading_ properly, etc. or if you need _counter cache_
+2. **Rails Indexes**  
+	Rake tasks for finding missing indexes
+3. **Scrooge**  
+	SQL optimizer. Query for only what you need. It learns in the first load and uses what it learned in the subsequent loads.
+	
+#### Rails plugins to prevent bloat ####
+
+1. **rack-bug**  
+	debugging toolbar for Rack applications implemented by middleware
+2. **memorylogic**  
+	Adds in process id and memory usage in your rails logs
+3. **oink**  
+	Log parser to find actions which cause an increase VM heap size (_script/oink --threshold=75 log/development.log_)
+	
+#### Ruby libraries to help scale ####
+
+1. **rubber**  
+	A capistrano/rails plugin that makes easy to deploy/manage/scale to EC2
+2. **cloud crowd** by _DocumentCloud_
+	Manages parallel processing through background jobs
+3. **Mad Mimi** gem for mailing lists
+	why? because _Rails_ really sucks on mailing lists!
