@@ -1,0 +1,9 @@
+Agile Software Development (Principles, Patterns and Practices) by Robert C. Martin
+
+S.O.L.I.D. stands for:
+
+SRP – Single Responsibility Principle
+OCP – Open Closed Principle
+LSP – Liskov Substitution Principle
+ISP – Interface Segregation Principle
+DIP – Dependency Inversion Principle
