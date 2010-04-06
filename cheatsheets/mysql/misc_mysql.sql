@@ -39,3 +39,7 @@ CREATE USER 'user_name'@'server' IDENTIFIED BY 'the_pass';
 
 #PERMISSIONS
 GRANT ALL ON {database}.* TO {user};
+
+http://www.pantz.org/software/mysql/mysqlcommands.html
+
+mysqlcheck -u root -p –auto-repair –check –optimize –all-databases #issue it every week to improve performance
