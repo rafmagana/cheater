@@ -1,0 +1,1 @@
+git cat-file blob <sha1> #show the contents of a blob
