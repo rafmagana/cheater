@@ -24,3 +24,6 @@ sudo apachectl start
 
 #tar gzip
 tar -pczf gzipped_tared_file.tar.gz file_or_folder_to_tar
+
+#rsync
+rsync -av --delete /home/techgage/gentoo /home/techgage/helix
