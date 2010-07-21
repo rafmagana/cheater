@@ -60,6 +60,9 @@ C-r #redo
 "{register_name}p #pastes the {register_name}
 :registers #show the registers
 
+Y #yanks (copies) one line; 2Y copies 2 lines
+yy #yanks (copies) one line; yG copies to the end of the file
+
 #WORKING ON TEXT OBJECTS
 iw #inner word
 aw #a word
