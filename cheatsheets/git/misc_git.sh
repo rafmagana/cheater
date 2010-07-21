@@ -9,6 +9,16 @@ git diff <commit1>:path/file <commit2>:otherpath/otherfile #make a diff between 
 git diff --cached <file>|empty #diff of files in index
 git diff -p #see complete diffs of commits
 
+#PATCHING
+git diff --no-prefix > patchfile #generate the patch
+patch -p0 < patchfile #apply the patch
+patch -p1 < patchfile #apply the patch if --no-prefix wasn't used
+
+git format-patch -1 <commit> #generate a patch from 1 commit, it generate a .patch file
+git format-patch --no-prefix -1 <commit> --not app/ #generate a patch from 1 commit and not excludes the app/ folder, use path -p0
+git am file.patch #applies the previous patch file and commit the changes
+git apply file.patch #applies the patch and don't commit
+
 #crazy things
 git hash-object -w <path/file> #returns the SHA1 of the object
 git reflog
